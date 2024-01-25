@@ -6,6 +6,9 @@
     <title>Document</title>
   </head>
   <body>
+    {% for msg in get_flashed_messages()%}
+    <h1>{{msg}}</h1>
+    {% endfor %}
     <h1>URL SHORTENER</h1>
     <form action="your-url" method="post">
         <label for="url">Website URL</label>
