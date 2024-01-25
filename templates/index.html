@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    {% for msg in get_flashed_messages()%}
-    <h1>{{msg}}</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-width: 100%;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% for msg in get_flashed_messages() %}
+    <h2>{{ msg }}</h2>
     {% endfor %}
     <h1>URL SHORTENER</h1>
     <form action="your-url" method="post">
@@ -17,7 +76,17 @@
         <label for="code">Short Name</label>
         <input type="text" name="code" required value="">
         <br>
-        <button type="submit">shorten</button>
+        <button type="submit">Shorten</button>
     </form>
-  </body>
+    {% if codes %}
+    <h3>Codes you have created</h3>
+    <ul>
+        {%for code in codes%}
+        <a href="{{url_for('redirect_to_url',code=code)}}">
+        <li>{{code}}</li>
+        </a>
+        {%endfor%}
+    </ul>
+    {%endif%}
+</body>
 </html>
